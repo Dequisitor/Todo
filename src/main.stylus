@@ -1,0 +1,175 @@
+blue = #66e
+green = #5c5
+red = #e44
+listSignColor = black//rgba(0,0,0,.9)
+
+font-family()
+	font-family "Lucida Console", Monaco, monospace
+
+primary()
+	border-color blue
+	background-color blue
+
+success()
+	border-color green
+	background-color green
+
+warning()
+	border-color red
+	background-color red
+
+colors()
+	&.primary
+		primary()
+	&.success
+		success()
+	&.warning
+		warning()
+
+body
+	background-color #44c
+	font-family()
+
+	*
+		box-sizing border-box
+
+	span
+		cursor default
+
+	span[contenteditable]
+		cursor text
+
+		&:focus
+			outline none
+
+	#main
+		color white
+
+		.todo-container
+			display flex
+			flex-direction column
+			//flex-wrap wrap
+			color black
+
+			.todo
+				display flex
+				flex-direction column
+				align-self flex-start
+				min-width 300px
+				line-height 40px
+				border 1px solid darkgray
+				border-radius 5px
+				margin 10px
+				padding 0 5px
+				background-color #eee
+
+				.head
+					display flex
+
+					.left
+						display flex
+						flex-wrap wrap
+						flex-grow 1
+
+						.type
+							margin 12px 10px 0 5px
+							width 15px
+							color listSignColor
+
+							.fa-chevron-right
+								cursor pointer
+								transition all .3s ease
+
+						.title
+							margin-right 10px
+							font-family()
+							font-size 16px
+							border none
+
+							&:focus
+								outline none
+
+						.custom-data
+							flex-grow 1
+							color rgba(0,0,0, 0.7)
+							text-align right
+							margin-right 10px
+
+					.controls
+						margin-top 2px
+						.fa
+							cursor pointer
+							margin 1px
+							padding 9px
+							border-radius 20px
+							width 36px
+							text-align center
+							opacity 0
+							transition all .3s ease
+
+						.fa:hover
+							background-color lightblue
+
+				.head:hover
+					.controls
+						.fa
+							opacity .7
+
+				.body
+					overflow hidden
+					max-height 0px
+					transition all .2s ease-out
+
+				.body.open
+					max-height 1000px
+					transition all .3s ease-in
+
+			.todo .todo
+				border none
+				margin 0
+				padding-right 0
+				padding-left 25px
+
+checkbox.checkbox
+	display inline-block
+	box-sizing border-box
+	width 20px
+	height 20px
+	border 2px solid black
+	border-radius 3px
+	margin 10px 5px
+	color white
+	cursor pointer
+	-webkit-user-select none
+
+	border-color black
+	background-color white
+	transition all .2s ease-in-out
+
+	&.checked
+		colors()
+
+.button
+	display inline-block
+	cursor pointer
+	border 1px solid gray
+	padding 7px 10px
+	min-width 100px
+	background-color gray
+	color white
+	font-weight bold
+	text-transform uppercase
+
+	colors()
+
+	&:hover
+		-webkit-filter brightness(150%)
+		filter brightness(150%)
+
+.dot
+	display inline-block
+	border-radius 10px
+	padding 3px
+	margin-top 4px
+	border 1px solid listSignColor
+	background-color listSignColor

@@ -1,70 +1,12 @@
-todos = [{
-	id: 1,
-	title: 'sod off',
-	done: false
-},
-{
-	id: 2,
-	title: 'rape tree bark',
-	done: true,
-	todos: [{
-		id: 3,
-		title: 'find attractive tree',
-		done: true
-	},
-	{
-		id: 4,
-		title: 'analyse bark',
-		done: false,
-		todos: [{
-			id: 5,
-			title: 'check for genitalia',
-			done: false
-		},
-		{
-			id: 6,
-			title: 'make sure it\'s a girl',
-			done: false
-		}]
-	},
-	{
-		id: 7,
-		title: 'try your best',
-		done: false
-	}]
-},
-{
-	id: 8,
-	title: 'get tired and go to bed way too late',
-	done: true
-},
-{
-	id: 9,
-	title: 'whine',
-	done: false,
-	todos: [{
-		id: 10,
-		title: 'express how everyone is against you',
-		done: false
-	},
-	{
-		id: 11,
-		title: 'tell everyone you are the victim',
-		done: true,
-		todos:[{
-			id: 12,
-			title: 'change context',
-			done: false,
-			value: 14
-		},
-		{
-			id: 13,
-			title: 'this is not really creative',
-			done: true,
-			value: 59
-		}]
-	}]
-}]
+mockValues = require '../mockValues.json'
+
+idBase = 0
+redoIds = (todos) ->
+	for todo in todos
+		todo.id = idBase
+		idBase++
+		if todo.todos?
+			redoIds todo.todos
 
 hasChild = (parent, id) ->
 	for item, i in parent
@@ -103,6 +45,8 @@ deleteTodo = (state, id) ->
 	if parent?
 		parent.todos.splice index, 1
 
+	idBase = 0
+	redoIds tmp.todos
 	return tmp
 
 toggleOpen = (state, id) ->
@@ -128,14 +72,30 @@ addTodo = (state, id) ->
 	todo = findTodo tmp, id
 	if todo?
 		todo.open = true
-		todo.todos = [{
+		if not todo.todos?
+			todo.todos = []
+		todo.todos.push({
 			title: 'ToDo',
-			editing: true
-		}]
+			editing: true,
+			id: idBase++
+		})
 
 	return tmp
 
-reducer = (state = {todos: todos}, action) ->
+toggleTodo = (state, id) ->
+	tmp = Object.assign {}, state
+	todo = findTodo tmp, id
+	if todo?
+		todo.done = !todo.done
+		if todo.todos?
+			for child in todo.todos
+				child.done = todo.done
+	
+	return tmp
+
+redoIds mockValues
+reducer = (state = {todos: mockValues}, action) ->
+	console.log 'action: ' + action.type + ' with payload: ' + action.payload
 	switch action.type
 		when 'ADD_TODO'
 			result = addTodo state, action.payload
@@ -145,6 +105,8 @@ reducer = (state = {todos: todos}, action) ->
 			result = toggleOpen state, action.payload
 		when 'SET_EDIT'
 			result = setEditing state, action.payload
+		when 'TOGGLE_TODO'
+			reuslt = toggleTodo state, action.payload
 
 	Object.assign {}, state, result
 

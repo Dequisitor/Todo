@@ -27,7 +27,7 @@ colors()
 		warning()
 
 body
-	background-color #44c
+	background-color #22b
 	font-family()
 
 	*
@@ -48,14 +48,12 @@ body
 		.todo-container
 			display flex
 			flex-direction column
-			//flex-wrap wrap
 			color black
 
 			.todo
 				display flex
 				flex-direction column
 				align-self flex-start
-				min-width 300px
 				line-height 40px
 				border 1px solid darkgray
 				border-radius 5px
@@ -68,7 +66,6 @@ body
 
 					.left
 						display flex
-						flex-wrap wrap
 						flex-grow 1
 
 						.type
@@ -109,6 +106,8 @@ body
 
 						.fa:hover
 							background-color lightblue
+					.checkbox
+						align-self flex-end
 
 				.head:hover
 					.controls
@@ -135,6 +134,7 @@ checkbox.checkbox
 	box-sizing border-box
 	width 20px
 	height 20px
+	min-width 20px
 	border 2px solid black
 	border-radius 3px
 	margin 10px 5px
@@ -173,3 +173,14 @@ checkbox.checkbox
 	margin-top 4px
 	border 1px solid listSignColor
 	background-color listSignColor
+
+//media queries
+@media (max-width: 800px)
+	body
+		#main
+			.todo-container
+				.todo
+					align-self stretch
+
+					.controls
+						display none

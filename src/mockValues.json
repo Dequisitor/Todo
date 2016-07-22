@@ -1,0 +1,72 @@
+[
+	{
+		"title": "go to gym",
+		"done": false
+	},
+	{
+		"title": "create todo list",
+		"done": true,
+		"todos": [{
+			"title": "make sure it looks nice",
+			"done": true
+		},
+		{
+			"title": "create use-cases",
+			"done": false,
+			"todos": [{
+				"title": "gulp setup",
+				"done": false
+			},
+			{
+				"title": "react-redux",
+				"done": false
+			},
+			{
+				"title": "nodejs server",
+				"done": false
+			}]
+		}]
+	},
+	{
+		"title": "multi user support",
+		"done": true
+	},
+	{
+		"title": "bugs",
+		"done": false,
+		"todos": [{
+			"title": "no server yet",
+			"done": false
+		},
+		{
+			"title": "client functionality",
+			"done": false,
+			"todos":[{
+				"title": "unit tests",
+				"done": false,
+				"value": 14
+			},
+			{
+				"title": "input widths",
+				"done": false,
+				"value": 59
+			},
+			{
+				"title": "toggle all children",
+				"done": false
+			},
+			{
+				"title": "add watch for mockValues",
+				"done": false
+			},
+			{
+				"title": "make adjustments for mobiles",
+				"done": false
+			},
+			{
+				"title": "code is a bit hacky",
+				"done": false
+			}]
+		}]
+	}
+]

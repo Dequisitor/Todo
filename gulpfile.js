@@ -64,6 +64,7 @@ gulp.task('watch', function() {
 	gulp.watch([config.paths.html, config.paths.mainHtml], ['html']);
 	gulp.watch([config.paths.js, config.paths.mainJs], ['js']);
 	gulp.watch(config.paths.css, ['css']);
+	gulp.watch('./src/*.json', ['js']);
 });
 
 gulp.task('open', ['connect'], function() {

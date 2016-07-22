@@ -5,13 +5,7 @@ Checkbox = require './checkbox.component'
 actions = require '../actions/todo.actions'
 
 ToDo = React.createClass
-	getInitialState: ->
-		{ title: this.props.todo.title }
-	componentWillReceiveProps: ->
-		this.setState { title: this.props.todo.title }
-	handleTitleChange: (event) ->
-		this.setState { title: event.target.value }
-
+	#events
 	addTodo: ->
 		this.props.addTodo this.props.todo.id
 	startEditing: (event) ->
@@ -22,7 +16,19 @@ ToDo = React.createClass
 		this.props.deleteTodo this.props.todo.id
 	toggleOpen: (event) ->
 		this.props.toggleOpen this.props.todo.id
+	toggleTodo: (event) ->
+		this.props.toggleTodo this.props.todo.id
+	handleKeyPress: (event) ->
+		console.log event.key
+		if event.key == 'Enter' then this.stopEditing()
 
+	#component functions
+	getInitialState: ->
+		{ title: this.props.todo.title }
+	componentWillReceiveProps: ->
+		this.setState { title: this.props.todo.title }
+	handleTitleChange: (event) ->
+		this.setState { title: event.target.value }
 	getOpenClasses: ->
 		if this.props.todo.open then 'fa fa-chevron-right fa-rotate-90' else 'fa fa-chevron-right'
 	render: ->
@@ -39,7 +45,7 @@ ToDo = React.createClass
 					</span>
 					{
 						if this.props.todo.editing
-							<input className="title" autoFocus value={this.state.title} onChange={this.handleTitleChange} onBlur={this.stopEditing}/>
+							<input className="title" autoFocus value={this.state.title} onChange={this.handleTitleChange} onBlur={this.stopEditing} onKeyPress={this.handleKeyPress}/>
 						else
 							<span className="title">{this.props.todo.title}</span>
 					}
@@ -53,7 +59,7 @@ ToDo = React.createClass
 					<span className="fa fa-plus" onClick={this.addTodo}></span>
 					<span className="fa fa-trash" onClick={this.deleteTodo}></span>
 				</span>
-				<Checkbox check={this.props.todo.done} className="warning" />
+				<Checkbox checked={this.props.todo.done} handleClick={this.toggleTodo} className="warning" />
 			</div>
 			<div className={if this.props.todo.open then 'body open' else 'body'}>
 				{
@@ -75,6 +81,8 @@ mapDispatchToProps = (dispatch, ownProps) ->
 			dispatch(actions.addTodo(id))
 		deleteTodo: (id) ->
 			dispatch(actions.deleteTodo(id))
+		toggleTodo: (id) ->
+			dispatch(actions.toggleTodo(id))
 		toggleOpen: (id) ->
 			dispatch(actions.toggleOpen(id))
 		setEditing: (id, state, title) ->

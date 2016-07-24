@@ -71,12 +71,12 @@ ToDo = React.createClass
 		</div>
 
 mapStateToProps = (state, ownProps) ->
-	{
+	return {
 		storeState: state,
 		todo: ownProps.todo
 	}
 mapDispatchToProps = (dispatch, ownProps) ->
-	{
+	return {
 		addTodo: (id) ->
 			dispatch(actions.addTodo(id))
 		deleteTodo: (id) ->

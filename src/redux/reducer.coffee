@@ -82,14 +82,17 @@ addTodo = (state, id) ->
 
 	return tmp
 
+toggleChildren = (todo, done) ->
+	todo.done = if done? then done else !todo.done
+	if todo.todos?
+		for child in todo.todos
+			toggleChildren child, todo.done
+
 toggleTodo = (state, id) ->
 	tmp = Object.assign {}, state
 	todo = findTodo tmp, id
 	if todo?
-		todo.done = !todo.done
-		if todo.todos?
-			for child in todo.todos
-				child.done = todo.done
+		toggleChildren todo
 	
 	return tmp
 
